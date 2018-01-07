@@ -7,16 +7,16 @@ Programming Languages Project
 
 ## DATA TYPES
 * Municipality
-⋅⋅* Name - String
-⋅⋅* Sectors - Map<String, Sector>
-
-* Sector
-⋅⋅ * Name - String
-⋅⋅ * Power - boolean
-⋅⋅ * Water - boolean
+   * Name - String
+   * Sectors - Map<String, Sector>
+   
+*  Sector
+   * Name - String
+   * Power - boolean
+   * Water - boolean
 	
 * Region
-⋅⋅ * Municipalities - List<Municipality>
+   * Municipalities - List<Municipality>
 
 ## COMMANDS
 * `municipality [municipality] = “[municipality name]”`
