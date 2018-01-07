@@ -1,0 +1,13 @@
+municipality m = "Mayaguez"
+municipality c = "Cabo Rojo"
+
+report(m, "Terrace", power, yes)
+report(m, "Terrace", water, yes)
+report(m, "Miradero", power, yes)
+report(m, "Miradero", water, no)
+
+analyze(m, power)
+analyze(m, water, power)
+
+analyze(c, power)
+analyze(c, water, power)
