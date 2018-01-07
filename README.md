@@ -1,5 +1,8 @@
-# Lumus
+# Lumus [Rename Pending]
 Programming Languages Project
+
+# [Eclipse JavaCC Plugin](http://eclipse-javacc.sourceforge.net/)
+
 
 ## CONSTANTS
 * option: power, water
