@@ -8,15 +8,15 @@ Programming Languages Project
 ## DATA TYPES
 * Municipality
    * Name - String
-   * Sectors - Map<String, Sector>
-   
+   * Sectors - Map of (String, Sector) pair
+
 *  Sector
    * Name - String
    * Power - boolean
    * Water - boolean
 	
 * Region
-   * Municipalities - List<Municipality>
+   * Municipalities - List< of Municipalities
 
 ## COMMANDS
 * `municipality [municipality] = “[municipality name]”`
