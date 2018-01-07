@@ -7,16 +7,16 @@ Programming Languages Project
 
 ## DATA TYPES
 * Municipality
-* * Name - String
-* * Sectors - Map<String, Sector>
+** Name - String
+** Sectors - Map<String, Sector>
 
 * Sector
-* * Name - String
-* * Power - boolean
-* * Water - boolean
+** Name - String
+** Power - boolean
+** Water - boolean
 	
 * Region
-* * Municipalities - List<Municipality>
+** Municipalities - List<Municipality>
 
 ## COMMANDS
 * municipality <municipality> = “<municipality name>”
@@ -30,13 +30,13 @@ Programming Languages Project
 * showstatistics(<region identifier>)
 
 ## Example Program:
-`municipality m = “Mayaguez”`
-`report(m, “Miradero”, water, yes)`
-`report(m, “Terrace”, power, yes)`
-`report(m, “Terrace”, water, yes)`
-`region r`
-`addmunucipality(r, m)`
-`report(m, “Miradero”, power, no)`
-`showstatistics(r)`
-`showstatistics(m)`
-`municipality m = “Cabo Rojo”`
+municipality m = “Mayaguez”
+report(m, “Miradero”, water, yes)
+report(m, “Terrace”, power, yes)
+report(m, “Terrace”, water, yes)
+region r
+addmunucipality(r, m)
+report(m, “Miradero”, power, no)
+showstatistics(r)
+showstatistics(m)
+municipality m = “Cabo Rojo”
