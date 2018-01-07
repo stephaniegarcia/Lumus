@@ -16,7 +16,7 @@ Programming Languages Project
    * Water - boolean
 	
 * Region
-   * Municipalities - List< of Municipalities
+   * Municipalities - List of Municipalities
 
 ## COMMANDS
 * `municipality [municipality] = “[municipality name]”`
