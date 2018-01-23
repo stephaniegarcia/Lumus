@@ -1,0 +1,167 @@
+/**
+ * JavaCC template file created by SF JavaCC plugin 1.5.28+ wizard for JavaCC 1.5.0+
+ */
+options
+{
+	ignore_case = true;
+	static = true;
+}
+
+PARSER_BEGIN(Lumus)
+
+public class Lumus
+{
+	public static void main(String args []) throws ParseException
+	{
+
+		try {
+			Lumus parser;
+			boolean valid = true;
+
+			java.util.HashMap<String,Municipality> map = new java.util.HashMap<String,Municipality>();
+			java.util.HashMap<String,Region> map_r = new java.util.HashMap<String,Region>();
+	//either read from file or console
+			if (args.length == 0) {
+				parser = new Lumus(System.in);
+			}
+			else {
+				parser = new Lumus(new java.io.FileInputStream(args[0]));
+			}
+
+			System.out.println("Lumus Scanner:");
+			while(valid) {
+				valid = parser.readLine(map, map_r);
+			}
+			System.out.println("\nTerminating Lumus Scanner...");
+		}
+		catch(Throwable e) {
+			System.err.println(e.getMessage());
+		}
+	}
+}
+
+PARSER_END(Lumus)
+
+SKIP :
+{
+	"\r"
+	| "\t"
+	| "\n"
+}
+
+TOKEN : 
+{
+	< TERMINATE : "end" >
+	| < OPTION : <WATER> | <POWER> >
+	| < AVAILABILITY : <YES> | <NO> >
+	| < #WATER : "water" >
+	| < #POWER : "power" >
+	| < #YES : "yes" >
+	| < #NO : "no" >
+	| < ID : ["a"-"z","A"-"Z","_"](["a"-"z","A"-"Z","_","0"-"9"])* >
+	| < NAME : "\""(["a"-"z"] | ["A"-"Z"] | " ")+"\"" >
+}
+
+
+
+boolean readLine(java.util.HashMap map, java.util.HashMap map_r) :
+{}
+{
+	<TERMINATE> { return false; }
+	| <EOF> { return false; }
+	| command(map, map_r) { return true; }
+}
+
+void command(java.util.HashMap map, java.util.HashMap map_r) :
+{ Token identifier=null, identifier2=null, reg=null, mun=null, sec=null, op=null, avail=null, op2=null;}
+{
+	"municipality "identifier=<ID>(" ")?"="(" ")?mun=<NAME>
+	{
+	  	Municipality mun2 = (Municipality)map.get(identifier.image);
+		Region r3 = (Region)map_r.get(identifier.image);
+		if(mun2 != null || r3 != null) {
+			System.err.println("Municipality or Region "+identifier.image+" already exists.");
+		}
+		else
+			map.put(identifier.image, new Municipality(mun.image));
+	}
+	| "report("(" ")?identifier=<ID>","(" ")?sec=<NAME>","(" ")?op=<OPTION>","(" ")?avail=<AVAILABILITY>(" ")?")"
+	{
+		Municipality temp = (Municipality)map.get(identifier.image);
+		if(temp == null) {
+			System.err.println("Municipality "+identifier.image+" does not exist");
+		}
+		else {
+			boolean check = false;
+			if(avail.image.equals("yes"))
+				check = true;
+			else
+				check = false;
+			temp.report(sec.image,op.image,check);
+			map.put(identifier.image,temp);
+		}
+	}
+	| "analyze("(" ")?identifier=<ID>(" ")?","(" ")?op=<OPTION>((" ")?","(" ")?op2=<OPTION>)?(" ")?")"
+	{
+		Municipality temp2= (Municipality)map.get(identifier.image);
+		if(temp2 == null) {
+			System.err.println("Municipality "+identifier.image+" does not exist");
+		}
+		else {
+			if(op2 != null)
+				temp2.analyze(op.image,op2.image);
+			else
+				temp2.analyze(op.image);
+		}
+	}
+	| "region "identifier=<ID>(" ")?"="(" ")?reg=<NAME>
+	{
+	  Municipality m = (Municipality)map.get(identifier.image);
+		Region r4 = (Region)map_r.get(identifier.image);
+		if(m != null || r4 != null) {
+			System.err.println("Municipality or Region "+identifier.image+" already exists.");
+		}
+		else
+			map_r.put(identifier.image, new Region(reg.image));
+	}
+	| "addmunicipality("(" ")?identifier=<ID>(" ")?","(" ")?identifier2=<ID>(" ")?")"
+	{
+		Region rtemp = (Region) map_r.get(identifier.image);
+		Municipality mtemp= (Municipality)map.get(identifier2.image); 
+
+		if(rtemp == null || mtemp == null){
+			System.err.println("Municipality "+identifier2.image+ " or Region " + identifier.image + " does not exist");
+		}else{
+			rtemp.addmunicipality(mtemp);
+		}
+
+	}
+	| "showstatistics("(" ")?identifier=<ID>(" ")?")"
+	{
+	  	Municipality mun3 = (Municipality)map.get(identifier.image);
+		Region r2 = (Region)map_r.get(identifier.image);
+		if(mun3 == null && r2 == null) {
+			System.err.println("Municipality or Region "+identifier.image+" does not exist");
+		}
+		else {
+		  	if(r2!=null) 	
+				r2.showStatistics();
+			else
+				mun3.showStatistics();
+		}
+	}
+	
+	| "help\n"
+  {
+  	System.out.println("municipality [municipality] = [municipality name]");
+	System.out.println("analyze([municipality identifier],[option])");
+	System.out.println("analyze([municipality identifier],[option],[option]");
+	System.out.println("report([municipality identifier],[sector name],[option],[availability])");
+	System.out.println("showstatistics([municipality identifier])");
+	System.out.println("region [region identifier] = [region name]");
+	System.out.println("addmunicipality([region identifier], [municipality identifier])");
+	System.out.println("showstatistics([region identifier])");
+   
+  }
+}
+
