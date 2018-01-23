@@ -1,0 +1,10 @@
+municipality m = "Mayaguez"
+report(m, "Miradero", water, yes)
+report(m, "Terrace", power, yes)
+report(m, "Terrace", water, yes)
+region r = "Test"
+addmunucipality(r, m)
+report(m, "Miradero", power, no)
+showstatistics(r)
+showstatistics(m)
+municipality m = "Cabo Rojo"

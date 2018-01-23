@@ -1,0 +1,11 @@
+municipality a = "Canovanas"
+municipality b = "Carolina"
+report(a,"Palma",water,yes)
+report(a,"Campo",power,yes)
+report(b,"Villas",power,yes)
+report(b,"Museo",power, yes)
+report(b,"Jardines",water,yes)
+region sur = "Sur"
+addmunicipality(sur,a)
+addmunicipality(sur,b)
+showstatistics(sur)
